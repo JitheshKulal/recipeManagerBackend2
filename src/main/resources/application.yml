@@ -1,6 +1,7 @@
-app:
-  datasource:
-      jdbc-url: jdbc:postgresql://localhost:5432/recipemanagerdb
-      username: postgres
-      password: password
-      pool-size: 30
+#app:
+#  datasource:
+#      jdbc-url: jdbc:postgresql://localhost:5432/recipemanagerdb
+#      username: postgres
+#      password: password
+#      pool-size: 30
+      
