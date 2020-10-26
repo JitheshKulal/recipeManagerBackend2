@@ -1,0 +1,9 @@
+DROP TABLE RM_USERS;
+CREATE TABLE RM_USERS(
+userid varchar(100),
+username varchar(100),
+password varchar(500),
+email varchar(100),
+active boolean,
+createdon DATE
+);

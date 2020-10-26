@@ -18,7 +18,7 @@ public class RecipeManagerApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("http://localhost:3006")
+				registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("*")//allowedOrigins("http://localhost:3006")
                 .allowedHeaders("*").allowCredentials(true);
 			}
 		};
