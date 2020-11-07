@@ -1,7 +1,0 @@
-CREATE TABLE RM_RECIPE_DATA (
-	id VARCHAR(200) NOT NULL PRIMARY KEY,
-	shadeNo VARCHAR(100),
-	colors VARCHAR(4000),
-	chemicals VARCHAR(4000),
-	submitTime DATE
-);

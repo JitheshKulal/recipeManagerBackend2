@@ -1,37 +1,35 @@
 package com.api.recipeManager.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.api.recipeManager.dao.ChemicalDao;
 import com.api.recipeManager.model.Chemical;
+import com.api.recipeManager.repository.ChemicalRepository;
+
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ChemicalService {
-	private final ChemicalDao chemicalDao;
+	private final ChemicalRepository chemicalRepository;
 	
-	@Autowired
-	public ChemicalService(@Qualifier("postgreschem") ChemicalDao chemicalDao) {
-		// TODO Auto-generated constructor stub
-		this.chemicalDao = chemicalDao;
-	}
 	
 	public List<Chemical> getAllChemical() {
-		return this.chemicalDao.getAllChemical();
+		return this.chemicalRepository.findAll();
 	}
 	
-	public int insertChemical(Chemical chemical) {
-		return this.chemicalDao.insertChemical(chemical);
+	public Chemical insertChemical(Chemical chemical) {
+		return this.chemicalRepository.save(chemical);
 	}
 	
-	public List<Chemical> getChemical(String objectId) {
-		return this.chemicalDao.getChemical(objectId);
+	public Optional<Chemical> getChemical(Long objectId) {
+		return this.chemicalRepository.findById(objectId);
 	} 
 	
-	public int deleteChemical(String objectId) {
-		return this.chemicalDao.deleteChemical(objectId);
+	public void deleteChemical(Long objectId) {
+		this.chemicalRepository.deleteById(objectId);
+		return;
 	}
 }

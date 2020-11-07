@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.recipeManager.dto.AuthenticationResponse;
 import com.api.recipeManager.dto.LoginRequest;
+import com.api.recipeManager.dto.RefreshTokenRequest;
 import com.api.recipeManager.dto.UserRegisterRequest;
 import com.api.recipeManager.service.AuthService;
 
@@ -33,7 +34,18 @@ public class AuthController {
 	
 	@PostMapping("/login")
 	public AuthenticationResponse Login(@RequestBody LoginRequest loginRequest) {
+		//authService.deleteRefreshTokensbyUsername(loginRequest.getUsername());
 		return authService.login(loginRequest);
 	}
 	
+	@PostMapping("/refresh/token")
+	public AuthenticationResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+		return authService.refreshToken(refreshTokenRequest);
+	}
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logoutUser(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+		authService.deleteToken(refreshTokenRequest.getRefreshToken());
+		return ResponseEntity.status(HttpStatus.OK).body("Refresh Toke deleted successfully");
+	}
 }

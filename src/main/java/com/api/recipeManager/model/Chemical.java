@@ -1,30 +1,30 @@
 package com.api.recipeManager.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.Instant;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+@Entity
+@Table(name = "rm_chemical_data")
 public class Chemical {
-	private final String id;
-	private final String chemicalName;
-	private final String description;
 	
-	public Chemical(@JsonProperty("id") String id,@JsonProperty("chemicalName") String chemicalName,@JsonProperty("description") String desc) {
-		// TODO Auto-generated constructor stub
-		this.id = id;
-		this.chemicalName = chemicalName;
-		this.description = desc;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getChemicalName() {
-		return chemicalName;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String id;
+	@NotNull
+	private String chemicalname;
+	private String description;
+	private Instant submittime;
 }

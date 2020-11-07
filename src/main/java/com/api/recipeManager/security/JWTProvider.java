@@ -2,7 +2,6 @@ package com.api.recipeManager.security;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -10,9 +9,12 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,17 @@ import com.api.recipeManager.exception.RecipeManagerException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import static io.jsonwebtoken.Jwts.parser;
 
+@Data
 @Service
 public class JWTProvider {
 	private KeyStore keyStore;
+	@Value("${jwt-expire}")
+	private Long JWTExpireTimeinMillisecs;
 	
 	@PostConstruct
 	public void init() {
@@ -42,6 +50,7 @@ public class JWTProvider {
 		User principal = (User)authentication.getPrincipal();
 		return Jwts.builder().setSubject(principal.getUsername())
 				.signWith(getPrivateKey())
+				.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
 				.compact();
 	}
 
@@ -70,6 +79,14 @@ public class JWTProvider {
 	public String getUsernNameFromJWT (String jwt) {
 		Claims claims = parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt).getBody();
 		return claims.getSubject();
+	}
+	
+	public String generateTokenByUserName(String username) {
+		// TODO Auto-generated method stub
+		return Jwts.builder().setSubject(username)
+				.signWith(getPrivateKey())
+				.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
+				.compact();
 	}
 	
 }

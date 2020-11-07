@@ -2,13 +2,12 @@ package com.api.recipeManager.service;
 
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.api.recipeManager.dao.RecipeDao;
 import com.api.recipeManager.model.Recipe;
+import com.api.recipeManager.repository.RecipeRepository;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -21,31 +20,29 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class RecipeService {
-
-	private final RecipeDao recipeDao;
+	private final RecipeRepository recipeRepository;
 	
-	@Autowired
-	public RecipeService(@Qualifier("postgresrec") RecipeDao recipeDao) {
-		// TODO Auto-generated constructor stub
-		this.recipeDao = recipeDao;
-	}
 	
 	public List<Recipe> getAllRecipe() {
-		return this.recipeDao.getAllRecipe();
+		return this.recipeRepository.findAll();
 	}
 	
-	public int insertRecipe(Recipe recipe) {
-		return this.recipeDao.insertRecipe(recipe);
+	public Recipe insertRecipe(Recipe recipe) {
+		return this.recipeRepository.save(recipe);
 	}
 	
-	public List<Recipe> getRecipe(String objectId) {
-		return this.recipeDao.getRecipe(objectId);
+	public Optional<Recipe> getRecipe(Long objectId) {
+		return this.recipeRepository.findById(objectId);
 	} 
 	
-	public int deleteRecipe(String objectId) {
-		return this.recipeDao.deleteRecipe(objectId);
+	public void deleteRecipe(Long objectId) {
+		this.recipeRepository.deleteById(objectId);
+		return;
 	} 
 	
 	public String process(String shadeNo, String count, String amount, String Customer, String liqourAmount,

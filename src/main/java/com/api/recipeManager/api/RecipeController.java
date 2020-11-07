@@ -1,17 +1,12 @@
 package com.api.recipeManager.api;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,7 +23,6 @@ import com.api.recipeManager.model.Recipe;
 import com.api.recipeManager.model.RecipeSheetModel;
 import com.api.recipeManager.service.RecipeService;
 
-import ch.qos.logback.core.util.ContentTypeUtil;
 
 @RequestMapping("api/recipe")
 @RestController
@@ -48,18 +42,18 @@ public class RecipeController {
 	}
 	
 	@PostMapping
-	public int insertRecipe(@RequestBody Recipe recipe) {
+	public Recipe insertRecipe(@RequestBody Recipe recipe) {
 		return recipeService.insertRecipe(recipe);
 	}
 	
 	@GetMapping(path = "/{objectId}")
-	public List<Recipe> getRecipe(@PathVariable("objectId") String objectId){
+	public Optional<Recipe> getRecipe(@PathVariable("objectId") Long objectId){
 		return this.recipeService.getRecipe(objectId);
 	}
 	
 	@DeleteMapping(path = "/{objectId}")
-	public int deleteRecipe(@PathVariable("objectId") String objectId) {
-		return recipeService.deleteRecipe(objectId);
+	public void deleteRecipe(@PathVariable("objectId") Long objectId) {
+		recipeService.deleteRecipe(objectId);
 	}
 	
 	@PostMapping(path="/pdf")

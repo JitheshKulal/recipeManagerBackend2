@@ -15,10 +15,13 @@ import org.springframework.stereotype.Service;
 
 import com.api.recipeManager.dto.AuthenticationResponse;
 import com.api.recipeManager.dto.LoginRequest;
+import com.api.recipeManager.dto.RefreshTokenRequest;
 import com.api.recipeManager.dto.UserRegisterRequest;
 import com.api.recipeManager.exception.RecipeManagerException;
+import com.api.recipeManager.model.RefreshToken;
 import com.api.recipeManager.model.Users;
 import com.api.recipeManager.model.VerificationToken;
+import com.api.recipeManager.repository.RefreshTokenRepository;
 import com.api.recipeManager.repository.UserRepository;
 import com.api.recipeManager.repository.UserTokenRepository;
 import com.api.recipeManager.security.JWTProvider;
@@ -34,6 +37,7 @@ public class AuthService {
 	private final UserTokenRepository tokenReporsitory;
 	private final AuthenticationManager authenticationManager;
 	private final JWTProvider jwtProvider;
+	private final RefreshTokenRepository refreshTokenRepository;
 	
 	@Transactional
 	public void signup(UserRegisterRequest registerRequest) throws RecipeManagerException{
@@ -65,11 +69,45 @@ public class AuthService {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String token = jwtProvider.generateToken(authentication);
-		return new AuthenticationResponse(token,loginRequest.getUsername());
+		return new AuthenticationResponse(token,loginRequest.getUsername(),Instant.now().plusMillis(jwtProvider.getJWTExpireTimeinMillisecs()),generateRefreshToken().getToken());
 	}
 	
 	public boolean checkUserExists(String username) {
 		Optional<Users> userList = userRepository.findByUsername(username);
 		return userList.isPresent();
+	}
+	
+	@Transactional
+	public RefreshToken generateRefreshToken() {
+		// TODO Auto-generated method stub
+		RefreshToken newRefreshToken = new RefreshToken();
+		newRefreshToken.setCreatedon(Instant.now());
+		newRefreshToken.setToken(UUID.randomUUID().toString());
+		return refreshTokenRepository.save(newRefreshToken);
+	}
+	
+	@Transactional
+	public void validateToken(String token) {
+		System.out.println(token);
+		refreshTokenRepository.findBytoken(token).orElseThrow(() -> new RecipeManagerException("Refresh Token not found"));
+	}
+	
+	@Transactional
+	public void deleteToken(String token) {
+		refreshTokenRepository.deleteBytoken(token);
+	}
+	
+	/*
+	@Transactional
+	public void deleteRefreshTokensbyUsername(String username) {
+		refreshTokenRepository.deleteByUsername(username);
+	}
+	*/
+	public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+		// TODO Auto-generated method stub
+		validateToken(refreshTokenRequest.getRefreshToken());
+		String token = jwtProvider.generateTokenByUserName(refreshTokenRequest.getUsername());
+		return new AuthenticationResponse(token, refreshTokenRequest.getUsername(), 
+				Instant.now().plusMillis(jwtProvider.getJWTExpireTimeinMillisecs()), refreshTokenRequest.getRefreshToken());
 	}
 }
