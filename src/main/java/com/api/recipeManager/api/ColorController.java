@@ -1,6 +1,7 @@
 package com.api.recipeManager.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,17 +32,17 @@ public class ColorController {
 	}
 	
 	@PostMapping
-	public int insertColor(@RequestBody Color color) {
+	public Color insertColor(@RequestBody Color color) {
 		return this.colorService.insertColor(color);
 	}
 	
 	@GetMapping(path = "/{objectId}")
-	public List<Color> getColor(@PathVariable("objectId") String objectId){
+	public Optional<Color> getColor(@PathVariable("objectId") Long objectId){
 		return this.colorService.getColor(objectId);
 	}
 	
 	@DeleteMapping(path = "/{objectId}")
-	public int deleteColor(@PathVariable("objectId") String objectId) {
-		return colorService.deleteColor(objectId);
+	public void deleteColor(@PathVariable("objectId") Long objectId) {
+		 colorService.deleteColor(objectId);
 	}
 }

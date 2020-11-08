@@ -23,7 +23,6 @@ import com.api.recipeManager.exception.RecipeManagerException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import static io.jsonwebtoken.Jwts.parser;
