@@ -12,18 +12,20 @@ import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "rm_color_data")
 public class Color {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Long id;
+	private Long id;
 	@NotNull
-	private final String colorname;
-	private final String description;
-	private final Instant submittime;
+	private String colorname;
+	private String description;
+	private Instant submittime;
 	
 }

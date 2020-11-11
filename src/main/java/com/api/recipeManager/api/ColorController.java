@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.recipeManager.dto.ColorRequest;
 import com.api.recipeManager.model.Color;
 import com.api.recipeManager.service.ColorService;
 
@@ -32,8 +33,8 @@ public class ColorController {
 	}
 	
 	@PostMapping
-	public Color insertColor(@RequestBody Color color) {
-		return this.colorService.insertColor(color);
+	public Color insertColor(@RequestBody ColorRequest colorRequest) {
+		return this.colorService.insertColor(colorRequest);
 	}
 	
 	@GetMapping(path = "/{objectId}")

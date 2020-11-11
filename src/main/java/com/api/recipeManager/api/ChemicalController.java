@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.recipeManager.dto.ChemicalRequest;
 import com.api.recipeManager.model.Chemical;
 import com.api.recipeManager.service.ChemicalService;
 
@@ -33,8 +34,8 @@ public class ChemicalController {
 	}
 	
 	@PostMapping
-	public Chemical insertChemical(@RequestBody Chemical chemical) {
-		return this.chemicalService.insertChemical(chemical);
+	public Chemical insertChemical(@RequestBody ChemicalRequest chemicalRequest) {
+		return this.chemicalService.insertChemical(chemicalRequest);
 	}
 	
 	@GetMapping(path = "/{objectId}")

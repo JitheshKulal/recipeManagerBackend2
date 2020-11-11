@@ -1,10 +1,12 @@
 package com.api.recipeManager.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.api.recipeManager.dto.ColorRequest;
 import com.api.recipeManager.model.Color;
 import com.api.recipeManager.repository.ColorRepository;
 
@@ -20,7 +22,11 @@ public class ColorService {
 		return this.ColorRep.findAll();
 	}
 	
-	public Color insertColor(Color color) {
+	public Color insertColor(ColorRequest colorRequest) {
+		Color color  = new Color();
+		color.setColorname(colorRequest.getColorName());
+		color.setDescription(colorRequest.getDescription());
+		color.setSubmittime(Instant.now());
 		return this.ColorRep.save(color);
 	}
 	

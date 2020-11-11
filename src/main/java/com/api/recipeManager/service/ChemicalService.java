@@ -1,10 +1,14 @@
 package com.api.recipeManager.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
+import com.api.recipeManager.dto.ChemicalRequest;
 import com.api.recipeManager.model.Chemical;
 import com.api.recipeManager.repository.ChemicalRepository;
 
@@ -20,7 +24,12 @@ public class ChemicalService {
 		return this.chemicalRepository.findAll();
 	}
 	
-	public Chemical insertChemical(Chemical chemical) {
+	@Transactional
+	public Chemical insertChemical(ChemicalRequest chemicalRequest) {
+		Chemical chemical = new Chemical();
+		chemical.setChemicalname(chemicalRequest.getChemicalName());
+		chemical.setDescription(chemicalRequest.getDescription());
+		chemical.setSubmittime(Instant.now());
 		return this.chemicalRepository.save(chemical);
 	}
 	

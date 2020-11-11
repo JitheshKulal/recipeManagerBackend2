@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.recipeManager.dto.RecipeRequest;
 import com.api.recipeManager.model.Recipe;
 import com.api.recipeManager.model.RecipeSheetModel;
 import com.api.recipeManager.service.RecipeService;
@@ -42,8 +43,8 @@ public class RecipeController {
 	}
 	
 	@PostMapping
-	public Recipe insertRecipe(@RequestBody Recipe recipe) {
-		return recipeService.insertRecipe(recipe);
+	public Recipe insertRecipe(@RequestBody RecipeRequest recipeRequest) {
+		return recipeService.insertRecipe(recipeRequest);
 	}
 	
 	@GetMapping(path = "/{objectId}")

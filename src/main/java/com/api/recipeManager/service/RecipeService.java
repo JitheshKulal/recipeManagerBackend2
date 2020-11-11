@@ -1,11 +1,13 @@
 package com.api.recipeManager.service;
 
 import java.io.FileOutputStream;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.api.recipeManager.dto.RecipeRequest;
 import com.api.recipeManager.model.Recipe;
 import com.api.recipeManager.repository.RecipeRepository;
 import com.itextpdf.text.BaseColor;
@@ -32,7 +34,12 @@ public class RecipeService {
 		return this.recipeRepository.findAll();
 	}
 	
-	public Recipe insertRecipe(Recipe recipe) {
+	public Recipe insertRecipe(RecipeRequest recipeRequest) {
+		Recipe recipe = new Recipe();
+		recipe.setShadeno(recipeRequest.getShadeNo());
+		recipe.setColors(recipeRequest.getColors());
+		recipe.setChemicals(recipeRequest.getChemicals());
+		recipe.setSubmittime(Instant.now());
 		return this.recipeRepository.save(recipe);
 	}
 	

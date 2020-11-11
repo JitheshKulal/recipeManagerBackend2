@@ -26,9 +26,9 @@ public class Recipe {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
-	private String shadeNo;
+	private Long id;
+	private String shadeno;
 	private String colors;
 	private String chemicals;
-	private Instant submitTime;
+	private Instant submittime;
 }
