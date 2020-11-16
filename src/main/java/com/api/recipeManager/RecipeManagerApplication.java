@@ -18,8 +18,18 @@ public class RecipeManagerApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
+				registry
+				.addMapping("/**")
+				.allowedOrigins("*")
+                .allowedMethods("*")
+                .maxAge(3600L)
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
+                .allowCredentials(true);
+				/*
 				registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("*")//allowedOrigins("http://localhost:3006")
                 .allowedHeaders("*").allowCredentials(true);
+                */
 			}
 		};
 	}

@@ -49,7 +49,7 @@ public class JWTProvider {
 		User principal = (User)authentication.getPrincipal();
 		return Jwts.builder().setSubject(principal.getUsername())
 				.signWith(getPrivateKey())
-				.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
+				//.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
 				.compact();
 	}
 
@@ -84,7 +84,7 @@ public class JWTProvider {
 		// TODO Auto-generated method stub
 		return Jwts.builder().setSubject(username)
 				.signWith(getPrivateKey())
-				.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
+				//.setExpiration(Date.from(Instant.now().plusMillis(JWTExpireTimeinMillisecs)))
 				.compact();
 	}
 	
