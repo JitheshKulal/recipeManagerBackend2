@@ -63,7 +63,6 @@ public class RecipeController {
 		if(!result.equals("Creation Success"))return null;
 		try {
 			byte[] contents = Files.readAllBytes(Paths.get("D:\\Temp.pdf"));
-
 		    HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_PDF);
 		    // Here you have to set the actual filename of your pdf
