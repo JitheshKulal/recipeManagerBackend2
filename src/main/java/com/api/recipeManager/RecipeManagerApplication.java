@@ -3,10 +3,14 @@ package com.api.recipeManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.api.recipeManager.config.SwaggerConfig;
+
 @SpringBootApplication
+@Import(SwaggerConfig.class)
 public class RecipeManagerApplication {
 
 	public static void main(String[] args) {
