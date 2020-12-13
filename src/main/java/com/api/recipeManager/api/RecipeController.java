@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,18 +23,16 @@ import com.api.recipeManager.model.Recipe;
 import com.api.recipeManager.model.RecipeSheetModel;
 import com.api.recipeManager.service.RecipeService;
 
+import lombok.AllArgsConstructor;
+
 
 @RequestMapping("api/recipe")
 @RestController
+@AllArgsConstructor
 public class RecipeController {
 	
 	private final RecipeService recipeService;
 	
-	@Autowired
-	public RecipeController(RecipeService recipeService) {
-		// TODO Auto-generated constructor stub
-		this.recipeService = recipeService;
-	}
 	
 	@GetMapping
 	public List<Recipe> getAllRecipe(){
