@@ -1,0 +1,32 @@
+CREATE TABLE RM_ROLES_DATA (
+	id SERIAL NOT NULL PRIMARY KEY,
+	role_name VARCHAR(100),
+	description VARCHAR(200),
+	createdOn DATE
+);
+
+CREATE TABLE RM_NAVLINK_ROLE_MAPPING (
+	id SERIAL NOT NULL PRIMARY KEY,
+	link_title VARCHAR(100),
+	link_to VARCHAR(100),
+	role_id VARCHAR(100),
+	role_name VARCHAR(100),
+	createdOn DATE
+);
+
+CREATE TABLE RM_USER_ROLE_MAPPING (
+	id SERIAL NOT NULL PRIMARY KEY,
+	username VARCHAR(100),
+	role_id VARCHAR(100),
+	role_name VARCHAR(100),
+	createdOn DATE
+);
+
+CREATE TABLE RM_FORM_SEC_ROLEMAP (
+	id SERIAL NOT NULL PRIMARY KEY,
+	form_name VARCHAR(100),
+	access_type VARCHAR(50),
+	role_id VARCHAR(100),
+	role_name VARCHAR(100),
+	updatedOn DATE
+);
