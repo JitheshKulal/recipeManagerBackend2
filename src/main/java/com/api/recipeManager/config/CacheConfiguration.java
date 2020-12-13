@@ -7,12 +7,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.api.recipeManager.model.UserRole;
 
+
 public class CacheConfiguration {
+
 	
 	JedisConnectionFactory jedisConnectionFactory() {
 		return new JedisConnectionFactory();
 	}
 	
+
 	
 	RedisTemplate<String, UserRole> redisTemplate(){
 		RedisTemplate<String, UserRole> redisTemplate = new RedisTemplate<>();
