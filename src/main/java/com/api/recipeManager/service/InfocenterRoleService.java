@@ -30,7 +30,7 @@ public class InfocenterRoleService {
 		infocenterRolesMap.setLink_to(infocenterRoleRequest.getLink_to());
 		infocenterRolesMap.setRole_id(infocenterRoleRequest.getRole_id());
 		infocenterRolesMap.setRole_name(infocenterRoleRequest.getRole_name());
-		infocenterRolesMap.setCreatedOn(Instant.now());
+		infocenterRolesMap.setCreatedon(Instant.now());
 		return this.infocenterRoleRepository.save(infocenterRolesMap);
 	}
 	

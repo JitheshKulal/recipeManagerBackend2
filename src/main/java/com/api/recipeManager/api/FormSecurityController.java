@@ -36,4 +36,9 @@ public class FormSecurityController {
 	public List<FormSecurity> createNewFormSecurityMapping(@RequestBody List<FormSecurityRequest> input){
 		return formSecurityService.createFormSecurityMapping(input);
 	}
+	
+	@GetMapping(path = "/{formname}/{username}")
+	public Optional<FormSecurity> getFormAccessFlagByUsername(@PathVariable("formname") String formname, @PathVariable("username") String username){
+		return formSecurityService.getFormSecurityFlagByUsername(formname, username);
+	}
 }

@@ -10,12 +10,14 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "RM_NAVLINK_ROLE_MAPPING")
 public class InfocenterRolesMapping {
@@ -26,5 +28,5 @@ public class InfocenterRolesMapping {
 	private String link_to;
 	private Long role_id;
 	private String role_name;
-	private Instant createdOn;
+	private Instant createdon;
 }

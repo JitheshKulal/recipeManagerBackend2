@@ -10,3 +10,4 @@ spring:
       ddl-auto: none  
     database-platform: org.hibernate.dialect.PostgreSQLDialect      
 jwt-expire: 1800000
+logging:  file:    name: recipeManager.log

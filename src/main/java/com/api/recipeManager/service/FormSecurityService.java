@@ -50,4 +50,8 @@ public class FormSecurityService {
 		formSecurityModel.deleteByAccesstypeAndFormname(access_type, form_name);
 	}
 	
+	@Transactional
+	public Optional<FormSecurity> getFormSecurityFlagByUsername(String formname, String username) {
+		return formSecurityModel.findByUsername(formname, username);
+	}
 }

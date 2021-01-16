@@ -27,9 +27,11 @@ import com.api.recipeManager.repository.UserTokenRepository;
 import com.api.recipeManager.security.JWTProvider;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @AllArgsConstructor
+@Log4j2
 public class AuthService {
 	
 	private final PasswordEncoder passwordEncoder;
@@ -41,6 +43,7 @@ public class AuthService {
 	
 	@Transactional
 	public void signup(UserRegisterRequest registerRequest) throws RecipeManagerException{
+		log.info("Inside Signup Service with data -> {}", registerRequest);
 		if(checkUserExists(registerRequest.username)) {
 			throw new RecipeManagerException("The username requested to login already exists");
 		}
@@ -66,6 +69,7 @@ public class AuthService {
 
 	public AuthenticationResponse login(LoginRequest loginRequest) {
 		// TODO Auto-generated method stub
+		log.info("Entering login service with data -> {}", loginRequest);
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String token = jwtProvider.generateToken(authentication);
@@ -88,7 +92,6 @@ public class AuthService {
 	
 	@Transactional
 	public void validateToken(String token) {
-		System.out.println(token);
 		refreshTokenRepository.findBytoken(token).orElseThrow(() -> new RecipeManagerException("Refresh Token not found"));
 	}
 	
@@ -97,12 +100,6 @@ public class AuthService {
 		refreshTokenRepository.deleteBytoken(token);
 	}
 	
-	/*
-	@Transactional
-	public void deleteRefreshTokensbyUsername(String username) {
-		refreshTokenRepository.deleteByUsername(username);
-	}
-	*/
 	public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
 		// TODO Auto-generated method stub
 		validateToken(refreshTokenRequest.getRefreshToken());
